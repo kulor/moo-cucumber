@@ -1,0 +1,10 @@
+{
+    "name": "MeBank"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "supervisor": "*"
+    , "express": "2.5.8"
+    , "jade": ">= 0.0.1"
+  }
+}
