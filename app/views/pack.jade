@@ -1,0 +1,16 @@
+h1= title
+
+div#pack-detail
+    p
+        span Pack ID: 
+        span#pack-id= pack.packId
+
+    p
+        span Number of Cards: 
+        span#pack-num-cards= pack.pack.numCards
+
+#actions
+    a(href="/card/create") Create Card
+
+
+-console.log(pack)

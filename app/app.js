@@ -14,6 +14,8 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: "Mooving target" }));
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
@@ -27,10 +29,15 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// Routes
+app.get('/', routes.index);
 
-app.get('/card/create', routes.index);
+app.get('/pack/create', routes.createPackForm);
+app.get('/pack/:packId', routes.getPack);
+app.post('/pack/create', routes.createPack);
+
+app.get('/card/create', routes.createCardForm);
+app.post('/card/create', routes.createCard);
 
 app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+    console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
