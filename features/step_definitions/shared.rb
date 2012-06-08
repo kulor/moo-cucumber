@@ -22,3 +22,7 @@ end
 Then /^I should see a button or link "(.*?)"$/ do |button_text|
     page.should have_css('button,a', :text => button_text)
 end
+
+When /^I submit the form$/ do
+    page.find('button').click
+end

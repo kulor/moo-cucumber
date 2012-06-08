@@ -3,4 +3,15 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body!= body
+    body
+        a(href="/admin") Admin
+        //- #nav
+        //-     ul
+        //-         li
+        //-             a(href="/pack/create") Create Pack
+        //-         li
+        //-             a(href="/side/create") Create Side
+        //-         li
+        //-             a(href="/image/upload") Upload Image
+        #content!= body
+        

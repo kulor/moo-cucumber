@@ -1,7 +1,7 @@
-@pending
 Feature: Creating a pack
     As a third party developer
     I want to be able to allow people to create custom cards based on my webapp
+    This will allow me to add custom cards to a collection
 
     Scenario: Creating a pack
         When I visit "pack/create"

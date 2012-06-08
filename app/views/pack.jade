@@ -2,8 +2,10 @@ h1= title
 
 div#pack-detail
     p
-        span Pack ID: 
-        span#pack-id= pack.packId
+        span 
+            a(href="http://uk.testing1.office.moo.com/create/design.php?uuid=" + pack.packId) Edit Pack
+        span#pack-id
+            = pack.packId
 
     p
         span Number of Cards: 

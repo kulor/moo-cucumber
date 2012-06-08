@@ -1,5 +1,19 @@
 h1= title
-img.sample-card(src="/images/card.png")
+form(action="/card/create", method="POST")
+    .sides
+        #card-front.side
+            h2 Front
+            img.sample-card(src="/images/card.png")
+            div
+                input(type="file", name="imageFile")
 
-form(action="/pack/create")
-    button.create-pack Create Card
+        #card-back.side
+            h2 Back
+            img.sample-card(src="/images/card.png")
+            div
+                input(type="file", name="imageFile")
+
+hr
+
+div
+    button.create-pack Generate Cards
