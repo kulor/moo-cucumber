@@ -5,5 +5,5 @@ end
 
 Then /^I should see the moo canvas with my cards preloaded$/ do
     page.should have_css('#BCDesignImageUI.current', :text => 'Crop your images')
-    sleep 10
+    sleep 5
 end

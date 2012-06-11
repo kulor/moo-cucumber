@@ -40,39 +40,32 @@ exports.createCard = function(req, res){
     var frontImageResource = req.session.images[req.body.frontImage];
     var backImageResource = clone(req.session.images[req.body.backImage]);
     backImageResource.imageBasketItem.type = 'back';
+
+    var businessCardImageBox = {
+        "height" : 59,
+        "angle" : 0,
+        "width" : 88,
+        "center" : {
+            "x" : 44,
+            "y" : 29.5
+        }
+    };
+
     var frontImageData = [
         {
             "linkId" : "variable_image_front",
             "type" : "imageData",
             "resourceUri" : frontImageResource.imageBasketItem.resourceUri,
-            "enhance" : false,
-            "imageBox" : {
-                "height" : 66,
-                "angle" : 0,
-                "width" : 88,
-                "center" : {
-                    "x" : 44,
-                    "y" : 29.5
-                }
-            },
+            "imageBox" : businessCardImageBox
         }
     ];
 
     var backImageData = [
         {
-            "linkId" : "variable_image_details",
+            "linkId" : "variable_image_front",
             "type" : "imageData",
             "resourceUri" : backImageResource.imageBasketItem.resourceUri,
-            "enhance" : false,
-            "imageBox" : {
-                "height" : 66,
-                "angle" : 0,
-                "width" : 88,
-                "center" : {
-                    "x" : 44,
-                    "y" : 29.5
-                }
-            },
+            "imageBox" : businessCardImageBox
         }
     ];
 

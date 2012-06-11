@@ -4,11 +4,10 @@ Feature: Creating a card
 
     Scenario: Create card landing page
         Given I have a sample pack
-        When I visit "card/create"
+        When I visit "/card/create"
         Then I should get the title "Create a card"
-        And there should be a sample image of a credit card
+        # And there should be a sample image of a credit card
 
-    @javascript
     Scenario: Submitting the card to the moo service
         Given I have a sample pack
         When I visit "/card/create"

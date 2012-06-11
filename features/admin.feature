@@ -3,7 +3,7 @@ Feature: Admin panel
     I want to be able to change the settings of my widget
 
     Scenario: Importing images
-        When I visit "image/import"
+        When I visit "/image/import"
         And I import the image "http://uk.moo.com/images/logo/logo_no_stripe_green.png"
         And I submit the form
         Then I should see a list of the images I have uploaded
