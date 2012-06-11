@@ -39,6 +39,7 @@ function checkHasPack(req, res, next){
 
 app.get('/admin', adminRoutes.index);
 
+app.get('/image/imported', generalRoutes.imported);
 app.get('/image/import', generalRoutes.importImageForm);
 app.post('/image/import', generalRoutes.importImage);
 

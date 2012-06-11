@@ -1,6 +1,7 @@
 var mooPackApi = require('../lib/moo.api.pack.js');
-var mooCardApi = require('../lib/moo.api.card.js');
 var mooImageApi = require('../lib/moo.api.image.js');
+
+var clone = require('clone');
 
 var titleMap = {
     businesscard : "Making Business Cards"
@@ -14,7 +15,10 @@ exports.index = function(req, res){
 };
 
 exports.createCardForm = function(req, res){
-    res.render('create_card', { title: 'Create a card' });
+    res.render('create_card', {
+        title: 'Create a card',
+        images: req.session.images || []
+    });
 };
 
 exports.createPackForm = function(req, res){
@@ -33,10 +37,77 @@ exports.createPack = function(req, res){
 };
 
 exports.createCard = function(req, res){
-    mooCardApi.create(req.session.pack, req.body, function(err, data){
+    var frontImageResource = req.session.images[req.body.frontImage];
+    var backImageResource = clone(req.session.images[req.body.backImage]);
+    backImageResource.imageBasketItem.type = 'back';
+    var frontImageData = [
+        {
+            "linkId" : "variable_image_front",
+            "type" : "imageData",
+            "resourceUri" : frontImageResource.imageBasketItem.resourceUri,
+            "enhance" : false,
+            "imageBox" : {
+                "height" : 66,
+                "angle" : 0,
+                "width" : 88,
+                "center" : {
+                    "x" : 44,
+                    "y" : 29.5
+                }
+            },
+        }
+    ];
+
+    var backImageData = [
+        {
+            "linkId" : "variable_image_details",
+            "type" : "imageData",
+            "resourceUri" : backImageResource.imageBasketItem.resourceUri,
+            "enhance" : false,
+            "imageBox" : {
+                "height" : 66,
+                "angle" : 0,
+                "width" : 88,
+                "center" : {
+                    "x" : 44,
+                    "y" : 29.5
+                }
+            },
+        }
+    ];
+
+    var packObj = {
+        productVersion: 1,
+        numCards: 50,
+        productCode: 'businesscard' ,
+        sides: [
+            {
+                "templateCode" : "businesscard_full_image_landscape",
+                "type" : "image",
+                "sideNum" : 1,
+                "data" : frontImageData
+            },
+            {
+                "templateCode" : "businesscard_full_image_landscape",
+                "type" : "details",
+                "sideNum" : 2,
+                "data" : backImageData
+            }
+        ],
+        imageBasket : {
+            items : [req.session.images[0].imageBasketItem]
+        }
+    };
+
+    console.log('frontImageResource', frontImageResource);
+    console.log('backImageResource', backImageResource);
+    console.log('packObj', packObj);
+
+    mooPackApi.update(req.session.pack, packObj, function(err, data){
         if(err){
             return res.send(err, 500);
         }
+        console.error('err', err);
         console.log('data', data);
         res.redirect('/pack/' + req.session.pack);
     })
@@ -85,7 +156,16 @@ exports.importImage = function(req, res){
         if(err){
             return res.send(err, 500);
         }
-        console.log('data', data);
-        res.send(data);
+        req.session.images = req.session.images || [];
+        req.session.images.push(data);
+        res.redirect('/image/imported');
+    })
+};
+
+exports.imported = function(req, res){
+    var imageUrl = req.body.imageUrl;
+    res.render('image/imported', {
+        title: "Imported Images",
+        images: req.session.images
     })
 };

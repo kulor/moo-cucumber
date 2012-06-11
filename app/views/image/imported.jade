@@ -1,0 +1,7 @@
+h1= title
+a(href="/card/create") Create Card with this image
+ul.images
+    each image in images
+        li.image
+            div=image.imageBasketItem.resourceUri
+            img(src=image.imageBasketItem.imageItems[2].resourceUri)

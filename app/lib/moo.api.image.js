@@ -14,6 +14,7 @@ exports.import = function(imageUrl, callback){
         "",
         conf,
         function (error, data, response) {
+            console.log('Image response', data);
             callback(error, JSON.parse(data));
         });
 }

@@ -3,17 +3,24 @@ form(action="/card/create", method="POST")
     .sides
         #card-front.side
             h2 Front
-            img.sample-card(src="/images/card.png")
+            if typeof images !== 'undefined' && images.length
+                each image, key in images
+                    li.image
+                        input(type="radio", name="frontImage", value=key, checked="checked")
+                        img(src=image.imageBasketItem.imageItems[2].resourceUri)
             div
-                input(type="file", name="imageFile")
+                a(href="/image/import") Import image
 
         #card-back.side
             h2 Back
-            img.sample-card(src="/images/card.png")
-            div
-                input(type="file", name="imageFile")
+            if typeof images !== 'undefined' && images.length
+                each image, key in images
+                    li.image
+                        input(type="radio", name="backImage", value=key, checked="checked")
+                        img(src=image.imageBasketItem.imageItems[2].resourceUri)
+            else
+                div
+                    a(href="/image/import") Import image
 
-hr
-
-div
-    button.create-pack Generate Cards
+    div
+        button.create-pack(type="submit") Generate Cards
